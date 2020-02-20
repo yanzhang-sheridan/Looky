@@ -5,7 +5,11 @@
         id        = "com.sheridan.imm.collective"
         version   = "3.0.1">
 
+<<<<<<< Updated upstream
     <name>Looky</name>
+=======
+    <name>Tilty</name>
+>>>>>>> Stashed changes
 
     <description>
         Mobile game to keep your device level while jostling others!
