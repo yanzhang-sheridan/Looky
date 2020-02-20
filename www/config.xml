@@ -5,18 +5,14 @@
         id        = "com.sheridan.imm.collective"
         version   = "3.0.1">
 
-<<<<<<< Updated upstream
     <name>Looky</name>
-=======
-    <name>Tilty</name>
->>>>>>> Stashed changes
 
     <description>
         Mobile game to keep your device level while jostling others!
     </description>
 
-    <author href="yanzhang.nofinsports.com" email="lyanzhang@yahoo.com">
-      Yan Zhang
+    <author href="http://danzen.com" email="support@danzen.com">
+       Dan Zen
     </author>
 
     <!--
