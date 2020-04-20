@@ -96,7 +96,7 @@
 						{object:page0.header, height:8, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:clear, maxWidth:90},
 						{object:page0.content, marginTop:5},
 						{object:page0.footer, marginTop:5, maxWidth:90}
-					], 5, lighter, true, new Shape(), stage)
+					], 5, lighter, true, null, stage)
 
 		);
 
@@ -164,7 +164,7 @@
 
 
 
-			page1.slider = new Slider({
+		 page1.slider = new Slider({
 					min:0,
 					max:28,
 					step:1,
@@ -188,9 +188,9 @@
 					lineWidth:10,
 					lineHeight:25
 			})
-					.alp(.8)
-					.addTo(page1.content)
-					.loc(page1.list.x, page1.list.y-100);
+			.alp(.8)
+			.addTo(page1.content)
+			.loc(page1.list.x, page1.list.y-100);
 
 
 			page1.max = new Label({
@@ -221,15 +221,15 @@
 					// 	zog(page1.slider.currentValue+4); // 4-32 in steps of 1
 					// });
 
-  			page1.slider.on("change", ()=>{
-					//
-						var output = "LENGTH: ";
-						zog(page1.slider.currentValue+4);
-						output += page1.slider.currentValue+4;
-						zog(output);
-						page1.title2.text = output;
-						stage.update();
-				});
+			page1.slider.on("change", ()=>{
+				//
+					var output = "LENGTH: ";
+					zog(page1.slider.currentValue+4);
+					output += page1.slider.currentValue+4;
+					zog(output);
+					page1.title2.text = output;
+					stage.update();
+			});
 
 
 
@@ -240,9 +240,9 @@
 					lineWidth:page1.list.width,
 					lineHeight:25
 			})
-					.alp(.8)
-					.addTo(page1.content)
-					.loc(page1.list.x, page1.list.y+page1.list.height+50);
+			.alp(.8)
+			.addTo(page1.content)
+			.loc(page1.list.x, page1.list.y+page1.list.height+50);
 
 			page1.list.setChecks(true);
 			page1.list.setCheck(2, false);
@@ -275,7 +275,7 @@
 									{object:page1.header, height:8, marginTop:5,  marginLeft:5, valign:CENTER, align:CENTER, backgroundColor: '#0a0e31', maxWidth:90},
 									{object:page1.content, marginTop:5},
 									{object:page1.footer, marginTop:5, maxWidth:100, backgroundColor:'#0a0e31',gradient:.3}
-							], 5, '#0a0e31',true, new Shape(), stage)
+							], 5, '#0a0e31',true, null, stage)  //new Shape()
 
 			);
 
@@ -300,9 +300,9 @@
 					lineWidth:150,
 					lineHeight:40
 			})
-					.alp(.8)
-					.addTo(page2.content)
-					.loc(page2.rect.x+5, page2.rect.y+10);
+			.alp(.8)
+			.addTo(page2.content)
+			.loc(page2.rect.x+5, page2.rect.y+10);
 
 			// var label = [{label:"copy", size:20}];
 			page2.copyInfo = new Label({
@@ -313,7 +313,7 @@
 					lineWidth:50,
 					lineHeight:20
 			})
-					.alp(.8);
+			.alp(.8);
 
 			page2.copyBtn = new Button({
 					 width:100,
@@ -463,28 +463,22 @@
 						{object:page2.header, height:8, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:'#0a0e31', maxWidth:90},
 						{object:page2.content, marginTop:5},
 						{object:page2.footer, marginTop:5, maxWidth:90, backgroundColor:'#0a0e31'}
-					], 5, '#0a0e31', true, new Shape(), stage)
+					], 5, '#0a0e31', true, null, stage)  //new Shape()
 
 			);
 
 
-			// const pages = new Pages([
-			// 		{page:page1, swipe:[page2,page2,null,null]},
-			// 		{page:page2, swipe:[page1,page1,null,null]}
-			// ], "slide").addTo();
 
 			const pages = new Pages({
-	   // holder:holder,
-	   // 5. pass in the individual page objects with swipe instructions
+
 			   pages:[
 			      // swipe:["right", "left", "down", "up"]
 			      {page:page0, swipe:[null,page1,"alert","alert"]},
 			      {page:page1, swipe:[page0,page2,null,null]},
 			      {page:page2, swipe:[page1,null,null,null]}
 			   ],
-			   // 6. add a transition and transition speed
 			   transition:"slide",
-			   speed:1000   //400
+			   speed:400   //400
 			 })
 		 	.addTo();
 
