@@ -1,0 +1,50 @@
+
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Lookey</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 	        -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner 	-->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
+
+<script src="https://zimjs.org/cdn/1.3.0/createjs.js"></script>
+<script src="https://zimjs.org/cdn/10.9.0/zim.js"></script>
+<!-- <script src="https://zimjs.com/ten/header.js"></script> -->
+
+<script src="./js/model.js"></script>
+<script src="./js/view.js"></script>
+<script src="./js/controller.js"></script>
+
+
+<script>
+// https://zimjs.com - JavaScript Canvas Framework - Code Creativity!
+
+	let stage = null;
+	let stageW = null;
+	let stageH = null;
+	const assets = ["heading.png"];
+	const path = "assets/";
+
+	const frame = new Frame("full", null, null, light, dark, assets, path);
+	frame.on("ready", () => {
+	    // put your code here
+	    stage = frame.stage;
+	    stageW = frame.width;
+	    stageH = frame.height;
+			const model = new app.Model();
+		  const view = new app.View(model);
+		  const controller = new app.Controller(model, view);
+			
+			stage.update();
+});
+
+</script>
+
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+<body></body>
+</html>

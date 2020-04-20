@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM Organizer</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz!             -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner     -->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate     -->
+
+<script src="https://d309knd7es5f10.cloudfront.net/createjs_1.1_min.js"></script>
+<script src="https://d309knd7es5f10.cloudfront.net/zim_9.4.0.js"></script>
+<!-- use zimjs.com/distill for minified individual functions! -->
+<script>
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"    sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"    sets canvas and stage to dimensions and scales to fit outside window size
+// "full"    sets stage to window size with no scaling
+// "tagID"    add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+var scaling = "fit"; // this will resize to fit inside the screen dimensions
+var width = 1024;
+var height = 768;
+var color = light;
+var outerColor = darker;
+
+// as of ZIM 5.5.0 you do not need to put zim before ZIM functions and classes
+var frame = new Frame(scaling, width, height, color, outerColor);
+frame.on("ready", function() {
+    zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+    var stage = frame.stage;
+    var stageW = frame.width;
+    var stageH = frame.height;
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // SIMPLE EXAMPLE
+
+    var organizer = new Organizer(200)
+        .change(function (e) {
+            if (e.target.orgType=="add") e.target.orgItem.text = "new";
+        });
+
+    var list = new List({
+        titleBar:"ORGANIZER",
+        width:200,
+        height:300,
+        viewNum:3.5,
+        list:["one","two","three","four","five"],
+        scrollBarActive:false,
+        organizer:organizer
+    })
+        .center()
+        .mov(0,40);
+
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // COLORS EXAMPLE - two step add process
+
+    var colorOrg = new Organizer({width:200, autoAdd:false})
+        .change(function () {
+            if (colorOrg.orgType=="add") colorPicker.show();
+        });
+
+    var colors = new List({
+        titleBar:"COLORS",
+        vertical:false,
+        width:200,
+        height:150,
+        selectedBackgroundColor:white,
+        scrollBarActive:false,
+        organizer:colorOrg,
+        list:[]
+    }).pos(100,200)
+    colors.tap(function (e) {
+        frame.color = colors.selected.icon.color;
+        stage.update();
+    });
+
+    var colorPicker = new ColorPicker({
+        alphaPicker:false
+    }).change(function () {
+        colorOrg.add(colorOrg.orgIndex, new Button({
+            width:colors.itemWidth,
+            height:colors.itemHeight,
+            corner:0,
+            backgroundColor:dark,
+            rollBackgroundColor:light,
+            label:"",
+            shadowColor:-1,
+            icon:new Circle((colors.itemWidth-3)/2, colorPicker.selectedColor)
+        }))
+        colorPicker.hide();
+    });
+    colorPicker.on("close", function () {
+        colorPicker.hide();
+    });
+
+
+    new Label("ZIM - Organizer() - the bar at the top of the list").pos(30,30).alp(.5).sca(.8);
+
+    stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+<script>
+var r=Math.round(Math.random()*1000000);
+document.write('<img src=/cgi-bin/traffic_plus?company=danzen&page=zimOrganizer&r='+r+' width=1 height=1>');
+</script>
+</body>
+</html>

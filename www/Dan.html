@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM List with CheckBox</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz!             -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner     -->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate     -->
+
+<script src="https://zimjs.org/cdn/1.2.4/createjs.js"></script>
+<script src="https://zimjs.org/cdn/10.8.0/zim.js"></script>
+<!-- use zimjs.com/distill for minified individual functions! -->
+
+
+<script src="https://zimjs.com/ten/header.js"></script>
+
+<script>
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"    sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"    sets canvas and stage to dimensions and scales to fit outside window size
+// "full"    sets stage to window size with no scaling
+// "tagID"    add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+var scaling = "fit"; // this will resize to fit inside the screen dimensions
+var width = 1024;
+var height = 768;
+var color = light;
+var outerColor = darker;
+
+// as of ZIM 5.5.0 you do not need to put zim before ZIM functions and classes
+var frame = new Frame(scaling, width, height, color, outerColor);
+frame.on("ready", function() {
+    zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+    var stage = frame.stage;
+    var stageW = frame.width;
+    var stageH = frame.height;
+
+    // STYLE = {
+    //     type:{
+    //         CheckBox:{
+    //             size:30
+    //         }
+    //     }
+    // }
+
+    var list = new List({
+        color:darker,
+        backgroundColor:yellow,
+        rollBackgroundColor:green,
+        selectedBackgroundColor:orange,
+        selectedRollBackgroundColor:orange,
+        list:["Breakfast", "Lunch", "Dinner", "Desert", "Snack", "Midnight Snack"],
+        checkBox:true
+    }).sca(1.5).center().change(summary);
+
+    function summary() {
+        var output = "Checked Items: ";
+        var checked = [];
+        loop(list.checkBoxes, function (checkBox) {
+            if (checkBox.checked) checked.push(checkBox.text);
+        });
+        output += checked.join(", ");
+        message.text = output;
+        stage.update();
+    };
+
+    // hi Ami!
+    // list.on("scrolling", function () {
+    //     zog("scrolling");
+    // });
+
+    var message = new Label({
+        text:"Checked Items:",
+        size:20,
+        lineWidth:list.width,
+        lineHeight:25
+    })
+        .alp(.8).loc(list.x, list.y+list.height+50);
+
+    list.setChecks(true);
+    list.setCheck(2, false);
+    summary();
+    zog(list.getCheck(2));
+
+
+    // STYLE = {
+    //     type:{
+    //         CheckBox:{
+    //             size:24
+    //         },
+    //         List:{
+    //             backgroundColor:blue,
+    //         }
+    //     }
+    // }
+
+    // an example of inserting a checkItem into a custom list
+    // note: not using the checkBox parameter but rather the checkItem() static method
+    // new List({list:["goodbye", List.checkItem("hello"), "what?"]}).center()
+
+    // HEADER / FOOTER
+    // if copying code - do not copy header and footer
+    makeHeader("ZIM - List() with checkBox parameter", "List", true, "TEN", "../ten.html");
+    makeFooter();
+
+    stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+<script>
+var r=Math.round(Math.random()*1000000);
+document.write('<img src=/cgi-bin/traffic_plus?company=danzen&page=zimListCheckBox&r='+r+' width=1 height=1>');
+</script>
+</body>
+</html>

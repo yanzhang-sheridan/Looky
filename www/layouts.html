@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM - Code Creativity</title>
+<script src="https://zimjs.org/cdn/1.2.4/createjs.js"></script>
+<script src="https://zimjs.org/cdn/10.8.0/zim.js"></script>
+<script>
+// https://zimjs.com - JavaScript Canvas Framework - Code Creativity!
+
+const frame = new Frame("full", null, null, light, dark);
+frame.on("ready", () => {
+    const stage = frame.stage;
+    let stageW = frame.width;
+    let stageH = frame.height;
+
+    // put your code here
+
+    const layoutManager = new LayoutManager();
+
+
+    // PAGE 1
+    const page1 = new Container(stageW, stageH).addTo();
+
+    const header = new Container(500, 60).addTo(page1);
+    // new Rectangle(header.width, header.height, green).addTo(header);
+    const title = new Label("LAYOUT!!").center(header);
+
+    const content = new Container(600,800).addTo(page1);
+    new Tile(new Dial(), 4, 6, 20, 20)
+        .scaleTo(content, 90, 90)
+        .center(content);
+
+    const footer = new Container(500,100).addTo(page1);
+    new Tabs().scaleTo(footer).center(footer);
+
+    layoutManager.add(
+        new Layout(page1, [
+            {object:header, height:10, marginTop:5, valign:CENTER, align:CENTER, backgroundColor:orange, maxWidth:80},
+            {object:content, marginTop:5},
+            {object:footer, marginTop:5, maxWidth:50, backgroundColor:red}
+        ], 5, light, true, new Shape(), stage)
+    );
+
+
+    // PAGE 2
+
+    // PAGE 3
+
+
+
+    layoutManager.dispose();
+    frame.on("resize", () => {
+        stageW = frame.width;
+        stageH = frame.height;
+        layoutManager.resize();
+    });
+
+    stage.update();
+});
+
+</script>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+<body></body>
+</html>

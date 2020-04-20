@@ -38,7 +38,7 @@
 	const outerColor = dark;
 
 
-	const assets = ["heading.png","eye.png","lookeybg.png"];
+	const assets = ["heading.png"];
 	const path = "assets/";
 
 	const frame = new Frame("full", null, null, light, dark, assets, path);
@@ -52,54 +52,36 @@
 		const manager = new Manager();
 
 
-		//home#ccccff 0%, #ffccff 100%
+		//landing page  --home
 
 		const page0 = new Container(stageW, stageH).addTo();
-		page0.header = new Container(600, 60).addTo(page0);
-		const image = asset("heading.png").clone().center(page0.header);
-		// page0.header = asset("heading.png").clone().addTo(page0);
-		// // const title = new Label("Password Generator").center(page1.header);
+		// const header = new Container(600, 60).addTo(page1);
+		// // const image = asset("heading.png").clone().center(page1.header);
+		page0.header = asset("heading.png").clone().addTo(page0);
+		// const title = new Label("Password Generator").center(page1.header);
 
-		page0.content = new Container(600,500).addTo(page0);
+	  page0.content = new Container(500,500).addTo(page0);
 
 
-		page0.rect = new Rectangle(500, 50, clear)
+		page0.rect = new Rectangle(400, 50, '#19194d', grey)
 				.addTo(page0.content)
-				.loc(page0.header.x+10, page0.header.y);
+				.loc(page0.header.x+50, page0.header.y+100);
 
-				//
-		page0.message = new Label({
-				text:"Want a password? Let Lookey get you one!!!",
-				size:24,
-				color:'#19194d',
-				fontOptions:"bold",
-				lineWidth:560,
-				lineHeight:30
-		})
-				.alp(1)
-				.addTo(page0.content)
-				.loc(page0.rect.x+30, page0.header.y+40);
-
-		page0.image = asset("eye.png").clone().center(page0.content)
-
-		page0.arrowR = new Triangle({a:50, color:'#19194d'})
+		page0.arrowR = new Triangle({a:50, color:"white"})
 				.rot(90)
 				.addTo(page0.content)
 				// .reg(null, w*.4)
-				.loc(page0.image.x+130,page0.image.y+130);
-
-		page0.footer = new Container(600,100).addTo(page0);
+				.loc(page0.rect.x,page0.rect.y+60);
 
 
 		manager.add(
 					new Layout(page0, [
-						{object:page0.header, height:8, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:clear, maxWidth:90},
-						{object:page0.content, marginTop:5},
-						{object:page0.footer, marginTop:5, maxWidth:90}
-					], 5, lighter, true, new Shape(), stage)
+						{object:page0.header, height:10, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:orange, maxWidth:90},
+						{object:page0.content, marginTop:5} //,
+						// {object:page2.footer, marginTop:5, maxWidth:90, backgroundColor:orange}
+					], 5, brown, true, new Shape(), stage)
 
 		);
-
 
 //main page  ------page1
 
@@ -160,7 +142,7 @@
 			})
 					.alp(.8)
 					.addTo(page1.content)
-					.loc(page1.list.x, page1.list.y-35);
+					.loc(page1.list.x, page1.list.y-40);
 
 
 
@@ -207,7 +189,7 @@
 
 
 			page1.title2 = new Label({
-					text:"LENGTH: 4 ",
+					text:"LENGTH:",
 					size:24,
 					color:lighter,
 					lineWidth:page1.list.width,
@@ -215,7 +197,7 @@
 			})
 					.alp(.8)
 					.addTo(page1.content)
-					.loc(page1.list.x, page1.slider.y-50);
+					.loc(page1.slider.x, page1.slider.y-50);
 
 					// page1.slider.on("change", function() {
 					// 	zog(page1.slider.currentValue+4); // 4-32 in steps of 1
@@ -223,7 +205,7 @@
 
   			page1.slider.on("change", ()=>{
 					//
-						var output = "LENGTH: ";
+						var output = "Length: ";
 						zog(page1.slider.currentValue+4);
 						output += page1.slider.currentValue+4;
 						zog(output);
@@ -234,7 +216,7 @@
 
 
 			page1.message = new Label({
-					text:"Password Contents:",
+					text:"Password includes:",
 					size:24,
 					color:lighter,
 					lineWidth:page1.list.width,
@@ -251,18 +233,16 @@
 
 			page1.footer = new Container(600,100).addTo(page1);
 
-			var info = [{label:"Home", size:20, lineWidth:50, lineHeight:40},{label:"Generate", size:20,lineWidth:50, lineHeight:40}];
+			var info = [{label:"Home", size:20},{label:"Generate", size:20}];
 		  page1.tab = new Tabs({
 					width:600,
 					height:100,
 					tabs:info,
-					currentEnabled:true,
-					currentSelected:false,
   				backgroundColor:new GradientColor(['#667eea','#660066'], [0,1], 0,0, 1000,0),
 					rollBackgroundColor:'#19194d',
-					selectedBackgroundColor:'#6666ff',
-					selectedRollBackgroundColor:grey,
-					color:lighter
+					selectedBackgroundColor:new GradientColor(['#667eea','#660066'], [0,1], 0,0, 1000,0),
+					selectedRollBackgroundColor:'#6666ff',
+				color:lighter
 			})
 			.scaleTo(page1.footer).center(page1.footer);
 
@@ -272,7 +252,7 @@
 
 			manager.add(
 							new Layout(page1, [
-									{object:page1.header, height:8, marginTop:5,  marginLeft:5, valign:CENTER, align:CENTER, backgroundColor: '#0a0e31', maxWidth:90},
+									{object:page1.header, height:10, marginTop:5,  marginLeft:5, valign:CENTER, align:CENTER, backgroundColor: '#0a0e31', maxWidth:100},
 									{object:page1.content, marginTop:5},
 									{object:page1.footer, marginTop:5, maxWidth:100, backgroundColor:'#0a0e31',gradient:.3}
 							], 5, '#0a0e31',true, new Shape(), stage)
@@ -287,9 +267,9 @@
 			page2.content = new Container(500,500).addTo(page2);
 
 
-			page2.rect = new Rectangle(470, 60, '#19194d', grey,2,14)
+			page2.rect = new Rectangle(400, 50, '#19194d', grey)
 					.addTo(page2.content)
-					.loc(page2.header.x+15, page2.header.y+100);
+					.center(page2.header.x, page2.header.y+100);
 			// 		.center(page2.content);
 			//
 			page2.message = new Label({
@@ -298,11 +278,11 @@
 					font:"courier",
 					color:lighter,
 					lineWidth:150,
-					lineHeight:40
+					lineHeight:30
 			})
 					.alp(.8)
 					.addTo(page2.content)
-					.loc(page2.rect.x+5, page2.rect.y+10);
+					.center(page2.rect);
 
 			// var label = [{label:"copy", size:20}];
 			page2.copyInfo = new Label({
@@ -328,7 +308,7 @@
 					 corner:14
 			})
 			.addTo(page2.content)
-		 .loc(page2.rect.x+300, page2.rect.y+70);
+		 .loc(page2.header.x+400, page2.header.y+70);
 			 // new Tabs({
 				// 	width:100,
 				// 	height:40,
@@ -352,49 +332,35 @@
 			})
 			.alp(0)
 			.addTo(page2.content)
-		  .loc(page2.rect.x+220, page2.rect.y+80);
+		  .loc(page2.header.x+220, page2.header.y+80);
 
 			// var label = [{label:"copy", size:20}];
 		var label = new Label({
 					text:"Get another one",
-					size:24,
+					size:20,
 					color:lighter,
 					// rollcolor:grey,
 					lineWidth:400,
-					lineHeight:40
+					lineHeight:20
 			})
-
-
-			page2.footer = new Container(600,100).addTo(page2);
+			.alp(.8);
 
 			page2.backBtn = new Button({
-					 width:600,
-					 height:100,
+					 width:400,
+					 height:40,
 					 // backing:new Circle(13, '#6666ff'),
 					 // rollBacking:new Circle(13, '#0099cc'),
 					 label:label,
 					 backgroundColor:new GradientColor(['#667eea','#660066'], [0,1], 0,0, 1000,0),
 					 rollBackgroundColor:'#19194d',
 					 color:lighter,
-					 borderColor:grey
-					 // corner:14
+					 borderColor:grey,
+					 corner:14
 			})
-		  .scaleTo(page2.footer).center(page2.footer);
-			// page2.backBtn = new Tabs({
-			// 	 width:600,
-			// 	 height:100,
-			// 	 tabs:label,
-			// 	 currentEnabled:true,
-			// 	 currentSelected:false,
-			// 	 backgroundColor:new GradientColor(['#667eea','#660066'], [0,1], 0,0, 1000,0),
-			// 	 rollBackgroundColor:'#19194d',
-			// 	 selectedBackgroundColor:'#6666ff',
-			// 	 selectedRollBackgroundColor:grey,
-			// 	 color:lighter
-		 // })
-		 // .scaleTo(page2.footer).center(page2.footer);
+			.addTo(page2.content)
+		  .loc(page2.rect.x, page2.rect.y+140);
 
-		 	page2.copyBtn.on("click", () => {
+		 	 page2.copyBtn.on("click", () => {
 				zog("hello, copy!");
 				const textarea = document.createElement("textarea");
 				const password = page2.message.text;
@@ -418,10 +384,7 @@
 			// // When Generate is clicked Password is generated.
 			var generatedPs = "";
 			page1.tab.on("change", () => {
-					// pages.go(page2, "right", "slide", 1000);
-			// 		pages.go(page2, "right");
-			// });
-			//
+
 		  // page1.tab.on("click", () => {
 				const length = page1.slider.currentValue+4;
 			  const hasUpper = page1.list.checkBoxes[0].checked;
@@ -436,6 +399,12 @@
 				page2.copiedInfo.opacity = "0";
 
 				page2.message.text = generatedPs;
+
+				// if (page1.tab.selectedIndex==0){
+				// 		pages.go(page0, "left", "slide", 4000);
+				// } else {
+				// 		pages.go(page2, "right", "slide", 4000);
+				// }
 				// pages.go(page2, "right", "slide", 1000);
 			});
 
@@ -447,7 +416,8 @@
 				if (typesCount === 0) return "";
 
 				for (let i = 0; i < length; i++) {
-					loop(typesArr,type=>{
+					// typesArr.loop(type,i){
+					typesArr.forEach(type => {
 						const funcName = Object.keys(type)[0];
 						generatedPassword += randomFunc[funcName]();
 					})
@@ -456,14 +426,14 @@
 			}
 
 
-			// page2.footer = new Label("SHERIDAN IM").addTo(page2);
+			page2.footer = new Label("SHERIDAN IM").addTo(page2);
 
 			manager.add(
 					new Layout(page2, [
-						{object:page2.header, height:8, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:'#0a0e31', maxWidth:90},
+						{object:page2.header, height:10, marginTop:5, marginLeft:5, valign:CENTER, align:CENTER, backgroundColor:orange, maxWidth:90},
 						{object:page2.content, marginTop:5},
-						{object:page2.footer, marginTop:5, maxWidth:90, backgroundColor:'#0a0e31'}
-					], 5, '#0a0e31', true, new Shape(), stage)
+						{object:page2.footer, marginTop:5, maxWidth:90, backgroundColor:orange}
+					], 5, brown, true, new Shape(), stage)
 
 			);
 

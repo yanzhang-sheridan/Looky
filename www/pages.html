@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM - Pages</title>
+
+<!-- Welcome to ZIM at https://zimjs.com - Code Creativity!                              -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS https://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner   -->
+<!-- ZIM is free to use. You can donate to help improve ZIM at https://zimjs.com/donate  -->
+
+<script src="https://zimjs.org/cdn/1.2.4/createjs.js"></script>
+<script src="https://zimjs.org/cdn/10.8.0/zim.js"></script>
+<!-- use zimjs.com/distill for minified individual functions! -->
+
+<script>
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"	sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
+// "full"	sets stage to window size with no scaling
+// "tagID"	add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+const scaling = "full"; // this will resize to fit inside the screen dimensions
+const width = null;
+const height = null;
+const color = green; // ZIM colors like green, blue, pink, faint, clear, etc.
+const outerColor = dark; // any HTML colors like "violet", "#333", etc. are fine to use
+
+const frame = new Frame(scaling, width, height, color, outerColor);
+frame.on("ready", () => { // ES6 Arrow Function - like function(){}
+    zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+    const stage = frame.stage;
+    let stageW = frame.width;
+    let stageH = frame.height;
+
+    // see https://zimjs.com/learn.html for video and code tutorials
+    // see https://zimjs.com/docs.html for documentation
+    // see https://zimjs.com/bits.html for 64 Interactive Media techniques
+
+    // put your code here (you can delete this sample code)
+    const page1 = new Container(stageW,stageH);
+    page1.backing = new Rectangle(page1.width, page1.height, dark).addTo(page1);
+    page1.triangle = new Triangle(160,160,160,white)
+        .rot(90)
+        .hov(1)
+        .rot(90)
+        .center(page1);
+
+    page1.triangle.on("mousedown", () => {
+        // pages.go(page2, "right", "slide", 1000);
+        pages.go(page2, "right");
+    });
+
+    const page2 = new Container(stageW,stageH);
+    page2.backing = new Rectangle(page2.width, page2.height, light).addTo(page2);
+    page2.triangle = new Triangle(160,160,160,dark)
+        .alp(.8)
+        .hov(1)
+        .rot(-90)
+        .center(page2);
+
+    page2.triangle.on("mousedown", () => {
+        // pages.go(page2, "right", "slide", 1000);
+        pages.go(page1, "left");
+    });
+
+    const pages = new Pages([
+        {page:page1, swipe:[page2, page2, "help", "help"]},
+        {page:page2, swipe:[page1, page1, "help", "help"]}
+    ], "slide", 700).addTo();
+
+    pages.on("help", () => {
+        if (pages.page == page2) {
+            zogg("helping");
+        } else {
+            zogr("helping");
+        }
+    });
+
+    frame.on("resize", () => {
+        stageW = frame.width;
+        stageH = frame.height;
+
+        page1.setBounds(stageW, stageH);
+        page1.backing.siz(stageW, stageH);
+        // page1.triangle.loc(stageW*.3, stageH*.3);
+        page1.triangle.center();
+
+        page2.setBounds(stageW, stageH);
+        page2.backing.siz(stageW, stageH);
+        page2.triangle.center();
+
+        pages.resize();
+    })
+
+
+
+
+
+    stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>
